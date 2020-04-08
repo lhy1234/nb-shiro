@@ -11,18 +11,37 @@
  Target Server Version : 80016
  File Encoding         : 65001
 
- Date: 03/04/2020 17:03:07
+ Date: 08/04/2020 11:22:21
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
+-- Table structure for sms_project
+-- ----------------------------
+DROP TABLE IF EXISTS `sms_project`;
+CREATE TABLE `sms_project`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `project_name` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `project_code` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `drug_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sms_project
+-- ----------------------------
+INSERT INTO `sms_project` VALUES (1, '三黄片I期临床试验', '123', '三黄片');
+INSERT INTO `sms_project` VALUES (2, '奥梅拉错健康受试者临床试验', '23234', '奥梅拉错');
+INSERT INTO `sms_project` VALUES (3, '布洛芬临床试验', 'blf_123', '布洛芬');
+
+-- ----------------------------
 -- Table structure for sys_permission
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_permission`;
 CREATE TABLE `sys_permission`  (
-  `id` int(11) NOT NULL COMMENT '主键id',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `parent_id` int(11) NULL DEFAULT NULL COMMENT '父id',
   `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '菜单标题',
   `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '路径',
@@ -56,11 +75,17 @@ CREATE TABLE `sys_permission`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '菜单权限表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of sys_permission
+-- ----------------------------
+INSERT INTO `sys_permission` VALUES (1, NULL, '项目管理', '/project/list', 'project/List', '项目管理', NULL, 0, 'project:list', '1', NULL, NULL, NULL, 1, NULL, NULL, 0, NULL, NULL, '2020-04-08 08:30:22', NULL, NULL, 0, 0, NULL);
+INSERT INTO `sys_permission` VALUES (2, NULL, '项目修改', '/project/update', NULL, '项目修改', NULL, 2, 'project:update', '1', NULL, NULL, NULL, 1, NULL, NULL, 0, NULL, NULL, '2020-04-08 08:33:53', NULL, NULL, 0, 0, NULL);
+
+-- ----------------------------
 -- Table structure for sys_role
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role`  (
-  `id` int(11) NOT NULL COMMENT '主键id',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `role_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '角色名称',
   `role_code` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '角色编码',
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
@@ -73,19 +98,34 @@ CREATE TABLE `sys_role`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of sys_role
+-- ----------------------------
+INSERT INTO `sys_role` VALUES (1, '商务', 'role_business', NULL, NULL, '2020-04-08 08:18:30', NULL, NULL);
+INSERT INTO `sys_role` VALUES (2, '技术支持', 'role_itsupport', NULL, NULL, '2020-04-08 08:19:20', NULL, NULL);
+INSERT INTO `sys_role` VALUES (3, '老板', 'role_boss', NULL, NULL, '2020-04-08 08:19:22', NULL, NULL);
+INSERT INTO `sys_role` VALUES (4, '研发总监', 'role_cto', NULL, NULL, '2020-04-08 08:21:07', NULL, NULL);
+INSERT INTO `sys_role` VALUES (5, '财务', 'role_finance', NULL, NULL, '2020-04-08 08:21:05', NULL, NULL);
+
+-- ----------------------------
 -- Table structure for sys_role_permission
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_permission`;
 CREATE TABLE `sys_role_permission`  (
-  `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `role_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '角色id',
-  `permission_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '权限id',
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `role_id` int(32) NULL DEFAULT NULL COMMENT '角色id',
+  `permission_id` int(32) NULL DEFAULT NULL COMMENT '权限id',
   `data_rule_ids` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `index_group_role_per_id`(`role_id`, `permission_id`) USING BTREE,
   INDEX `index_group_role_id`(`role_id`) USING BTREE,
   INDEX `index_group_per_id`(`permission_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色权限表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_role_permission
+-- ----------------------------
+INSERT INTO `sys_role_permission` VALUES (1, 2, 2, NULL);
+INSERT INTO `sys_role_permission` VALUES (2, 2, 1, NULL);
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -113,19 +153,19 @@ CREATE TABLE `sys_user`  (
   UNIQUE INDEX `index_user_name`(`username`) USING BTREE,
   INDEX `index_user_status`(`status`) USING BTREE,
   INDEX `index_user_del_flag`(`del_flag`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 'aaa', '牛背', '123', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, 0, NULL, '2020-04-03 16:55:01', NULL, NULL);
+INSERT INTO `sys_user` VALUES (1, 'aaa', '牛背', '123', NULL, NULL, '2020-04-03 17:10:00', 0, NULL, NULL, NULL, NULL, 0, NULL, '2020-04-03 16:55:01', NULL, '2020-04-03 17:10:12');
 
 -- ----------------------------
 -- Table structure for sys_user_role
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE `sys_user_role`  (
-  `id` int(11) NOT NULL COMMENT '主键id',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `user_id` int(11) NULL DEFAULT NULL COMMENT '用户id',
   `role_id` int(11) NULL DEFAULT NULL COMMENT '角色id',
   PRIMARY KEY (`id`) USING BTREE,
@@ -133,5 +173,10 @@ CREATE TABLE `sys_user_role`  (
   INDEX `index2_groupuu_ole_id`(`role_id`) USING BTREE,
   INDEX `index2_groupuu_useridandroleid`(`user_id`, `role_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户角色表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_user_role
+-- ----------------------------
+INSERT INTO `sys_user_role` VALUES (1, 1, 4);
 
 SET FOREIGN_KEY_CHECKS = 1;

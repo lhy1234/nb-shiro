@@ -2,11 +2,16 @@ package com.nb.shiro.service.impl;
 
 import com.nb.shiro.entity.SysUser;
 import com.nb.shiro.mapper.SysUserMapper;
+import com.nb.shiro.mapper.SysUserRoleMapper;
 import com.nb.shiro.service.ISysUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -23,8 +28,22 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Autowired
     private SysUserMapper sysUserMapper;
 
+    @Autowired
+    private SysUserRoleMapper sysUserRoleMapper;
+
     @Override
     public SysUser findByUsername(String username) {
         return sysUserMapper.findByUsername(username);
+    }
+
+    @Override
+    public Set<String> findUserRolesSet(int userId){
+        List<String> roles = sysUserRoleMapper.findUserRolesByUserId(userId);
+        return new HashSet<>(roles);
+    }
+
+    @Override
+    public Set<String> findUserPermissionsSet(int userId) {
+        return null;
     }
 }

@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +80,14 @@ public class MyRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        return null;
+        //得到用户
+        SysUser user = (SysUser)principals.getPrimaryPrincipal();
+        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+        //设置角色 code编码
+		authorizationInfo.setRoles(sysUserService.findUserRolesSet(user.getUsername()));
+        //设置权限code
+        authorizationInfo.setStringPermissions(sysUserService.findUserPermissionsSet(user.getUsername()));
+        return authorizationInfo;
     }
 
 

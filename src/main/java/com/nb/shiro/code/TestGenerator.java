@@ -40,10 +40,10 @@ public class TestGenerator {
         //数据源配置
         DataSourceConfig dataSourceConfig=new DataSourceConfig();
         dataSourceConfig.setDbType(DbType.MYSQL);
-        String url = "jdbc:mysql://192.168.1.202:3306/csd_manage?useSSL=true&useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT";
+        String url = "jdbc:mysql://127.0.0.1:3306/db_shiro?useSSL=true&useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT";
         dataSourceConfig.setUrl(url);
         dataSourceConfig.setUsername("root");
-        dataSourceConfig.setPassword("Farinfo@216");
+        dataSourceConfig.setPassword("lhy1234");
         dataSourceConfig.setDriverName("com.mysql.cj.jdbc.Driver");
 
         //策略配置
@@ -52,7 +52,7 @@ public class TestGenerator {
         strategyConfig.setColumnNaming(NamingStrategy.underline_to_camel);
         strategyConfig.setNaming(NamingStrategy.underline_to_camel); // 表名生成策略 下划线转驼峰命名
 
-        strategyConfig.setInclude("sms_subject_register");
+        strategyConfig.setInclude("sys_user_role","sys_role_permission","sys_role","sys_permission");
 
 
         strategyConfig.setTablePrefix(""); // 此处可以修改为您的表前缀
@@ -62,21 +62,21 @@ public class TestGenerator {
 
         //包配置
         PackageConfig packageConfig=new PackageConfig();
-        packageConfig.setParent("com.farinfo.sms");
-        packageConfig.setEntity("core.domain");
-        packageConfig.setMapper("core.mapper");
-        packageConfig.setService("core.service");
-        packageConfig.setServiceImpl("core.service.impl");
-        packageConfig.setController("pc.controller");
+        packageConfig.setParent("com.nb.shiro");
+        packageConfig.setEntity("entity");
+        packageConfig.setMapper("mapper");
+        packageConfig.setService("service");
+        packageConfig.setServiceImpl("service.impl");
+        packageConfig.setController("controller");
 
         //模板配置
-        TemplateConfig templateConfig=new TemplateConfig();
-        templateConfig.setEntity("/templates/entity.java.vm");
-        templateConfig.setXml("/templates/mapper.xml.vm");
-        templateConfig.setMapper("/templates/mapper.java.vm");
-        templateConfig.setService("/templates/service.java.vm");
-        templateConfig.setServiceImpl("/templates/serviceImpl.java.vm");
-        templateConfig.setController("/templates/controller.java.vm");
+//        TemplateConfig templateConfig=new TemplateConfig();
+//        templateConfig.setEntity("/templates/entity.java.vm");
+//        templateConfig.setXml("/templates/mapper.xml.vm");
+//        templateConfig.setMapper("/templates/mapper.java.vm");
+//        templateConfig.setService("/templates/service.java.vm");
+//        templateConfig.setServiceImpl("/templates/serviceImpl.java.vm");
+//        templateConfig.setController("/templates/controller.java.vm");
 
         //自定义设置
         List<FileOutConfig> focList=new ArrayList<>();
@@ -103,7 +103,7 @@ public class TestGenerator {
         autoGenerator.setDataSource(dataSourceConfig);
         autoGenerator.setStrategy(strategyConfig);
         autoGenerator.setPackageInfo(packageConfig);
-        autoGenerator.setTemplate(templateConfig);
+        //autoGenerator.setTemplate(templateConfig);
         autoGenerator.setCfg(injectionConfig);
         autoGenerator.execute();
     }

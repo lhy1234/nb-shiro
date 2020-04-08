@@ -66,8 +66,8 @@ public class MyRealm extends AuthorizingRealm {
             throw new AuthenticationException("用户不存在");
         }
 
-//        JwtUtil.verify(jwtToken,username,user.getPassword()){
-//
+//        if(!JwtUtil.verify(jwtToken,username,user.getPassword())){
+//            throw new AuthenticationException("token解析失败");
 //        }
         // 判断用户状态
         if (user.getStatus() != 1) {

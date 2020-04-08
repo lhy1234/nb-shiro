@@ -42,11 +42,18 @@ public class CodeGenerator {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir(projectPath + "/src/main/java");
+        gc.setOutputDir("C:/ZZZ_Farinfo/genCode");//生成文件的输出目录
+        //gc.setOutputDir(projectPath + "/src/main/java");
         gc.setAuthor("李浩洋");
         gc.setOpen(false);
         // gc.setSwagger2(true); 实体属性 Swagger2 注解
+        gc.setEnableCache(false);//是否开启mybatis二级缓冲
+        gc.setBaseResultMap(true);//mapper.xml表字段与实体属性映射
+        gc.setBaseColumnList(true);//mapper.xml基本查询列
+
         mpg.setGlobalConfig(gc);
+        gc.setServiceName("%sService");
+
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();

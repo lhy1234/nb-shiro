@@ -38,6 +38,7 @@ public class LoginController {
         if(!StringUtils.equals(user.getPassword(),password)){
             return Result.error(101,"用户名或密码错误");
         }
+
         String token = JwtUtil.sign(username,password);
         Map<String,Object> resultMap = new HashMap<>();
         resultMap.put("user",user);

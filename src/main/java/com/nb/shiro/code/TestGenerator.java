@@ -52,7 +52,7 @@ public class TestGenerator {
         strategyConfig.setColumnNaming(NamingStrategy.underline_to_camel);
         strategyConfig.setNaming(NamingStrategy.underline_to_camel); // 表名生成策略 下划线转驼峰命名
 
-        strategyConfig.setInclude("sys_user_role","sys_role_permission","sys_role","sys_permission");
+        strategyConfig.setInclude("sys_area");
 
 
         strategyConfig.setTablePrefix(""); // 此处可以修改为您的表前缀

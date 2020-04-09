@@ -84,9 +84,9 @@ public class MyRealm extends AuthorizingRealm {
         SysUser user = (SysUser)principals.getPrimaryPrincipal();
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         //设置角色 code编码
-		authorizationInfo.setRoles(sysUserService.findUserRolesSet(user.getUsername()));
+		authorizationInfo.setRoles(sysUserService.findUserRolesSet(user.getId()));
         //设置权限code
-        authorizationInfo.setStringPermissions(sysUserService.findUserPermissionsSet(user.getUsername()));
+        authorizationInfo.setStringPermissions(sysUserService.findUserPermissionsSet(user.getId()));
         return authorizationInfo;
     }
 

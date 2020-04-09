@@ -40,6 +40,8 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/static/**","anon");
         filterChainDefinitionMap.put("/css/**","anon");
 
+        filterChainDefinitionMap.put("/sysArea/**","anon");
+
 
         // 添加自己的过滤器并且取名为jwt
         Map<String, Filter> filterMap = new HashMap<String, Filter>(1);

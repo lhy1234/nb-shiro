@@ -13,12 +13,10 @@ import java.util.List;
  * </p>
  *
  * @author 
- * @since 2020-04-08
+ * @since 2020-09-10
  */
 @Repository
 public interface SysUserRoleMapper extends BaseMapper<SysUserRole> {
 
-
-
-    List<String> findUserRolesByUserId(@Param("userId") int userId);
+    List<String> findRolesByUserId(@Param("userId") String userId);
 }

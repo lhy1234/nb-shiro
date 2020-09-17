@@ -1,48 +1,49 @@
 package com.nb.shiro.controller;
 
-import com.nb.shiro.beans.Result;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.nb.shiro.model.vo.Result;
 import com.nb.shiro.entity.SysUser;
-import com.nb.shiro.service.ISysUserService;
+import com.nb.shiro.model.form.LoginForm;
+import com.nb.shiro.service.SysUserService;
 import com.nb.shiro.utils.JwtUtil;
-import lombok.extern.slf4j.Slf4j;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
- * Created by: 李浩洋 on 2020-04-02
- **/
-@Slf4j
-@RequestMapping("/")
+ * 登录
+ * create by lihaoyang on 2020/9/15
+ */
+@Api(tags="用户登录")
+@RequestMapping("sys")
 @RestController
 public class LoginController {
 
-
     @Autowired
-    private ISysUserService userService;
+    private SysUserService sysUserService;
 
-    @RequestMapping("/login")
-    public Result login(HttpServletResponse response, @RequestParam String username, @RequestParam String password){
+    @ApiOperation("登录接口")
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public Result login(@RequestBody LoginForm loginForm){
 
-        SysUser user = userService.findByUsername(username);
-        if(user == null){
-            return Result.error(101,"用户名或密码错误");
+        String username = loginForm.getUsername();
+        String password = loginForm.getPassword();
+
+        //1. 校验用户是否有效
+        SysUser sysUser = sysUserService.getOne(new QueryWrapper<SysUser>().eq("username",username));
+        if(sysUser == null){
+            return Result.error500("用户名或密码错误");
         }
-        if(!StringUtils.equals(user.getPassword(),password)){
-            return Result.error(101,"用户名或密码错误");
+        if(!StringUtils.equals(sysUser.getPassword(),password)){
+            return Result.error500("用户名或密码错误");
         }
+        String jwt = JwtUtil.sign(username);
+        return Result.OK(jwt);
 
-        String token = JwtUtil.sign(username,password);
-        Map<String,Object> resultMap = new HashMap<>();
-        resultMap.put("user",user);
-        resultMap.put("token",token);
-        return Result.ok(resultMap);
     }
 }

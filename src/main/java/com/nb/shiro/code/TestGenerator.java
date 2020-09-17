@@ -25,7 +25,7 @@ public class TestGenerator {
         globalConfig.setActiveRecord(false); //开启 ActiveRecord 模式
         globalConfig.setAuthor("");
         //globalConfig.setOutputDir(projectPath+"/src/main/java"); //生成文件的输出目录
-        globalConfig.setOutputDir("C:/ZZZ_Farinfo/genCode");//生成文件的输出目录
+        globalConfig.setOutputDir("C:/Z_lhy/codeGen");//生成文件的输出目录
         globalConfig.setFileOverride(false); //是否覆盖已有文件
         globalConfig.setIdType(IdType.AUTO);
         globalConfig.setServiceName("%sService");
@@ -40,11 +40,11 @@ public class TestGenerator {
         //数据源配置
         DataSourceConfig dataSourceConfig=new DataSourceConfig();
         dataSourceConfig.setDbType(DbType.MYSQL);
-        String url = "jdbc:mysql://127.0.0.1:3306/db_shiro?useSSL=true&useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT";
+        String url = "jdbc:mysql://127.0.0.1:3306/db_shiro2?useSSL=true&useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT";
         dataSourceConfig.setUrl(url);
         dataSourceConfig.setUsername("root");
-        dataSourceConfig.setPassword("lhy1234");
-        dataSourceConfig.setDriverName("com.mysql.cj.jdbc.Driver");
+        dataSourceConfig.setPassword("root");
+        dataSourceConfig.setDriverName("com.mysql.jdbc.Driver");
 
         //策略配置
         StrategyConfig strategyConfig=new StrategyConfig();
@@ -52,7 +52,10 @@ public class TestGenerator {
         strategyConfig.setColumnNaming(NamingStrategy.underline_to_camel);
         strategyConfig.setNaming(NamingStrategy.underline_to_camel); // 表名生成策略 下划线转驼峰命名
 
-        strategyConfig.setInclude("sys_area");
+
+        strategyConfig.setInclude("sys_user","sys_role",
+                "sys_user_role","sys_permission",
+                "sys_role_permission","sys_depart","sys_user_depart");
 
 
         strategyConfig.setTablePrefix(""); // 此处可以修改为您的表前缀

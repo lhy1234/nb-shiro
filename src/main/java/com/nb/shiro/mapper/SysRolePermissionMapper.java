@@ -2,6 +2,10 @@ package com.nb.shiro.mapper;
 
 import com.nb.shiro.entity.SysRolePermission;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * <p>
@@ -9,8 +13,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author 
- * @since 2020-04-08
+ * @since 2020-09-10
  */
+@Repository
 public interface SysRolePermissionMapper extends BaseMapper<SysRolePermission> {
 
+    List<String> getUserPermissionsByUserId(@Param("userId") String userId);
 }

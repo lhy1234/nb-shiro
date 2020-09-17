@@ -8,11 +8,20 @@
         <result column="role_id" property="roleId" />
         <result column="permission_id" property="permissionId" />
         <result column="data_rule_ids" property="dataRuleIds" />
+        <result column="operate_date" property="operateDate" />
+        <result column="operate_ip" property="operateIp" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, role_id, permission_id, data_rule_ids
+        id, role_id, permission_id, data_rule_ids, operate_date, operate_ip
     </sql>
+
+
+    <select id="getUserPermissionsByUserId" parameterType="String" resultType="String">
+        select distinct perms from sys_permission where id in (
+select distinct t2.permission_id from sys_user_role t1 join sys_role_permission t2 on t1.role_id=t2.role_id where t1.user_id =#{userId}
+) and perms is not null
+    </select>
 
 </mapper>

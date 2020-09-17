@@ -1,9 +1,13 @@
 package com.nb.shiro.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.IdType;
 import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import java.util.Date;
 
+import io.swagger.models.auth.In;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -13,20 +17,22 @@ import lombok.experimental.Accessors;
  * 用户表
  * </p>
  *
- * @author 李浩洋
- * @since 2020-04-02
+ * @author 
+ * @since 2020-09-10
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
+@TableName("sys_user")
 public class SysUser implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID=1L;
 
     /**
      * 主键id
      */
-    private Integer id;
+    @TableId(value = "id", type = IdType.AUTO)
+    private String id;
 
     /**
      * 登录账号
@@ -51,7 +57,7 @@ public class SysUser implements Serializable {
     /**
      * 头像
      */
-    private String headImg;
+    private String avatar;
 
     /**
      * 生日
@@ -89,6 +95,31 @@ public class SysUser implements Serializable {
     private Integer delFlag;
 
     /**
+     * 第三方登录的唯一标识
+     */
+    private String thirdId;
+
+    /**
+     * 第三方类型
+     */
+    private String thirdType;
+
+    /**
+     * 工号，唯一键
+     */
+    private String workNo;
+
+    /**
+     * 职务，关联职务表
+     */
+    private String post;
+
+    /**
+     * 座机号
+     */
+    private String telephone;
+
+    /**
      * 创建人
      */
     private String createBy;
@@ -107,6 +138,16 @@ public class SysUser implements Serializable {
      * 更新时间
      */
     private Date updateTime;
+
+    /**
+     * 身份（1普通成员 2上级）
+     */
+    private Boolean userIdentity;
+
+    /**
+     * 负责部门
+     */
+    private String departIds;
 
 
 }

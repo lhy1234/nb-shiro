@@ -14,7 +14,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author 
- * @since 2020-04-08
+ * @since 2020-09-10
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -28,17 +28,17 @@ public class SysUserRole implements Serializable {
      * 主键id
      */
     @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    private String id;
 
     /**
      * 用户id
      */
-    private Integer userId;
+    private String userId;
 
     /**
      * 角色id
      */
-    private Integer roleId;
+    private String roleId;
 
 
 }

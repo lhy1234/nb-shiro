@@ -2,6 +2,7 @@ package com.nb.shiro.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
+import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import lombok.Data;
@@ -14,7 +15,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author 
- * @since 2020-04-08
+ * @since 2020-09-10
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -25,19 +26,32 @@ public class SysRolePermission implements Serializable {
     private static final long serialVersionUID=1L;
 
     @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    private String id;
 
     /**
      * 角色id
      */
-    private Integer roleId;
+    private String roleId;
 
     /**
      * 权限id
      */
-    private Integer permissionId;
+    private String permissionId;
 
+    /**
+     * 数据权限ids
+     */
     private String dataRuleIds;
+
+    /**
+     * 操作时间
+     */
+    private LocalDateTime operateDate;
+
+    /**
+     * 操作ip
+     */
+    private String operateIp;
 
 
 }

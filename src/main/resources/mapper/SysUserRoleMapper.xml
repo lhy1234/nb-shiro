@@ -14,8 +14,8 @@
         id, user_id, role_id
     </sql>
 
-
-    <select id="findUserRolesByUserId" parameterType="int" resultType="String">
-      select sr.role_code from sys_user_role sur join  sys_role sr on sur.role_id=sr.id  where sur.user_id = #{userId}
+    <select id="findRolesByUserId" parameterType="String" resultType="String">
+        select role_code from sys_role where id in
+        (select role_id from sys_user_role where user_id=#{userId})
     </select>
 </mapper>

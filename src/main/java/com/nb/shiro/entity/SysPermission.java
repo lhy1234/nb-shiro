@@ -1,10 +1,13 @@
 package com.nb.shiro.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -15,7 +18,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author 
- * @since 2020-04-08
+ * @since 2020-09-10
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -29,12 +32,12 @@ public class SysPermission implements Serializable {
      * 主键id
      */
     @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    private String id;
 
     /**
      * 父id
      */
-    private Integer parentId;
+    private String parentId;
 
     /**
      * 菜单标题
@@ -79,12 +82,12 @@ public class SysPermission implements Serializable {
     /**
      * 菜单排序
      */
-    private Integer sortNo;
+    private Double sortNo;
 
     /**
      * 聚合子路由: 1是0否
      */
-    private Boolean alwaysShow;
+    private Integer alwaysShow;
 
     /**
      * 菜单图标
@@ -94,17 +97,17 @@ public class SysPermission implements Serializable {
     /**
      * 是否路由菜单: 0:不是  1:是（默认值1）
      */
-    private Boolean isRoute;
+    private Integer isRoute;
 
     /**
      * 是否叶子节点:    1:是   0:不是
      */
-    private Boolean isLeaf;
+    private Integer isLeaf;
 
     /**
      * 是否缓存该页面:    1:是   0:不是
      */
-    private Boolean keepAlive;
+    private Integer keepAlive;
 
     /**
      * 是否隐藏路由: 0否,1是
@@ -124,7 +127,7 @@ public class SysPermission implements Serializable {
     /**
      * 创建时间
      */
-    private LocalDateTime createTime;
+    private Date createTime;
 
     /**
      * 更新人
@@ -134,7 +137,7 @@ public class SysPermission implements Serializable {
     /**
      * 更新时间
      */
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
     /**
      * 删除状态 0正常 1已删除
@@ -150,6 +153,15 @@ public class SysPermission implements Serializable {
      * 按钮权限状态(0无效1有效)
      */
     private String status;
+
+    /**
+     * 外链菜单打开方式 0/内部打开 1/外部打开
+     */
+    private Integer internalOrExternal;
+
+
+    @TableField(exist = false)
+    private List<SysPermission> children;
 
 
 }

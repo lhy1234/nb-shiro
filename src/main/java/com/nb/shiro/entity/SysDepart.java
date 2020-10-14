@@ -28,7 +28,7 @@ public class SysDepart implements Serializable {
     /**
      * ID
      */
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.ID_WORKER)
     private String id;
 
     /**

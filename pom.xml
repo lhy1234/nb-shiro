@@ -57,6 +57,12 @@
             <optional>true</optional>
         </dependency> -->
 
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>6.0.0.Final</version>
+        </dependency>
+
         <!-- commons -->
         <dependency>
             <groupId>commons-io</groupId>
@@ -233,6 +239,12 @@
             <groupId>com.github.stuxuhai</groupId>
             <artifactId>jpinyin</artifactId>
             <version>1.1.8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.10</version>
         </dependency>
 
 

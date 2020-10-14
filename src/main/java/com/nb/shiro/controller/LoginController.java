@@ -1,14 +1,16 @@
 package com.nb.shiro.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.nb.shiro.model.resp.UserInfo;
 import com.nb.shiro.model.vo.Result;
 import com.nb.shiro.entity.SysUser;
-import com.nb.shiro.model.form.LoginForm;
+import com.nb.shiro.model.request.LoginForm;
 import com.nb.shiro.service.SysUserService;
 import com.nb.shiro.utils.JwtUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,7 +45,10 @@ public class LoginController {
             return Result.error500("用户名或密码错误");
         }
         String jwt = JwtUtil.sign(username);
-        return Result.OK(jwt);
+        UserInfo userInfo = new UserInfo();
+        BeanUtils.copyProperties(sysUser,userInfo);
+        userInfo.setToken(jwt);
+        return Result.OK(userInfo);
 
     }
 }

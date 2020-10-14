@@ -7,14 +7,11 @@
         <id column="id" property="id" />
         <result column="role_id" property="roleId" />
         <result column="permission_id" property="permissionId" />
-        <result column="data_rule_ids" property="dataRuleIds" />
-        <result column="operate_date" property="operateDate" />
-        <result column="operate_ip" property="operateIp" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, role_id, permission_id, data_rule_ids, operate_date, operate_ip
+        id, role_id, permission_id
     </sql>
 
 

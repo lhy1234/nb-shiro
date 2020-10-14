@@ -17,8 +17,6 @@
         <result column="org_code" property="orgCode" />
         <result column="status" property="status" />
         <result column="del_flag" property="delFlag" />
-        <result column="third_id" property="thirdId" />
-        <result column="third_type" property="thirdType" />
         <result column="work_no" property="workNo" />
         <result column="post" property="post" />
         <result column="telephone" property="telephone" />
@@ -32,7 +30,23 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, username, realname, password, salt, avatar, birthday, sex, email, phone, org_code, status, del_flag, third_id, third_type, work_no, post, telephone, create_by, create_time, update_by, update_time, user_identity, depart_ids
+        id, username, realname, password, salt, avatar, birthday, sex, email, phone, org_code, status, del_flag, work_no, post, telephone, create_by, create_time, update_by, update_time, user_identity, depart_ids
     </sql>
+    
+    
+    <select id="findUserPageListByRoleId" resultMap="BaseResultMap">
+       select
+        <include refid="Base_Column_List"/>
+        from
+        (select user_id from sys_user_role where role_id=#{roleId} )t1
+        join sys_user t2 on t1.user_id=t2.id
+        <where>
+            t2.del_flag=0
+            <if test="username!=null and username!=''">
+              and  t2.username = #{username}
+            </if>
+        </where>
+            order by t2.create_time desc
+    </select>
 
 </mapper>

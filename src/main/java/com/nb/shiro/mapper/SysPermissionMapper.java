@@ -4,6 +4,7 @@ import com.nb.shiro.entity.SysPermission;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.nb.shiro.model.vo.MenuNode;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -29,4 +30,14 @@ public interface SysPermissionMapper extends BaseMapper<SysPermission> {
     List<MenuNode> findUserTopMenuNodeList(@Param("userId") String userId);
 
     List<MenuNode> findMenuNodeListByParentId(@Param("parentId") String parentId);
+
+    /**
+     * 查询用户的shiro权限字符串
+     * @param userId
+     * @return
+     */
+    List<String> getUserShiroPermissions(@Param("userId") String userId);
+
+    @Select("select id,parent_id parentId, `name` ,path,component,is_leaf from sys_permission order by sort_no")
+    List<MenuNode> getAllMenuNodeList();
 }

@@ -25,7 +25,7 @@ public class SysRolePermission implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.ID_WORKER)
     private String id;
 
     /**
@@ -38,20 +38,7 @@ public class SysRolePermission implements Serializable {
      */
     private String permissionId;
 
-    /**
-     * 数据权限ids
-     */
-    private String dataRuleIds;
 
-    /**
-     * 操作时间
-     */
-    private LocalDateTime operateDate;
-
-    /**
-     * 操作ip
-     */
-    private String operateIp;
 
 
 }

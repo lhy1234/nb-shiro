@@ -13,4 +13,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface SysRolePermissionService extends IService<SysRolePermission> {
 
+    /**
+     * 保存角色-权限
+     * @param roleId 角色id
+     * @param lastPermissionIds 上次的权限 id，多个逗号分隔
+     * @param newPermissionIds 新的权限id，多个逗号分隔
+     */
+    void saveRolePermission(String roleId, String lastPermissionIds, String newPermissionIds);
 }

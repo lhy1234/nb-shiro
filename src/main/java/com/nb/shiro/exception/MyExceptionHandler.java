@@ -15,6 +15,16 @@ public class MyExceptionHandler {
     /**
      * 处理自定义异常
      */
+    @ExceptionHandler(RequestParamException.class)
+    public Result handleRRException(RequestParamException e){
+        log.warn("参数校验异常:"+e);
+        return Result.error(e.getCode(),e.getMessage());
+    }
+
+
+    /**
+     * 处理自定义异常
+     */
     @ExceptionHandler(BizException.class)
     public Result<?> handleBizException(BizException e){
         log.error(e.getMessage(), e);
@@ -32,6 +42,8 @@ public class MyExceptionHandler {
         log.error(e.getMessage(), e);
         return Result.error(ErrorEnum.SORRY403);
     }
+
+
 
     @ExceptionHandler(Exception.class)
     public Result<?> handleException(Exception e){

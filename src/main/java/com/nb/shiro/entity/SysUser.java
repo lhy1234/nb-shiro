@@ -31,7 +31,7 @@ public class SysUser implements Serializable {
     /**
      * 主键id
      */
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.ID_WORKER)
     private String id;
 
     /**
@@ -94,15 +94,6 @@ public class SysUser implements Serializable {
      */
     private Integer delFlag;
 
-    /**
-     * 第三方登录的唯一标识
-     */
-    private String thirdId;
-
-    /**
-     * 第三方类型
-     */
-    private String thirdType;
 
     /**
      * 工号，唯一键

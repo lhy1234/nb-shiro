@@ -7,83 +7,60 @@
         <id column="id" property="id" />
         <result column="parent_id" property="parentId" />
         <result column="name" property="name" />
-        <result column="url" property="url" />
+        <result column="path" property="path" />
         <result column="component" property="component" />
-        <result column="component_name" property="componentName" />
-        <result column="redirect" property="redirect" />
         <result column="menu_type" property="menuType" />
         <result column="perms" property="perms" />
-        <result column="perms_type" property="permsType" />
         <result column="sort_no" property="sortNo" />
-        <result column="always_show" property="alwaysShow" />
         <result column="icon" property="icon" />
-        <result column="is_route" property="isRoute" />
         <result column="is_leaf" property="isLeaf" />
-        <result column="keep_alive" property="keepAlive" />
-        <result column="hidden" property="hidden" />
-        <result column="description" property="description" />
-        <result column="create_by" property="createBy" />
-        <result column="create_time" property="createTime" />
-        <result column="update_by" property="updateBy" />
-        <result column="update_time" property="updateTime" />
         <result column="del_flag" property="delFlag" />
-        <result column="rule_flag" property="ruleFlag" />
-        <result column="status" property="status" />
-        <result column="internal_or_external" property="internalOrExternal" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, parent_id, name, url, component, component_name, redirect, menu_type, perms, perms_type, sort_no, always_show, icon, is_route, is_leaf, keep_alive, hidden, description, create_by, create_time, update_by, update_time, del_flag, rule_flag, status, internal_or_external
+        id, parent_id, name, path, component,menu_type, perms, sort_no, icon, is_leaf,  del_flag
     </sql>
 
 
-
-
-
-<!--    <select id="findAllMenuIdListByUserId" parameterType="String" resultType="String">-->
-<!--        select distinct  t2.permission_id-->
-<!--        from sys_user_role t1-->
-<!--        left join sys_role_permission t2-->
-<!--        on  t1.role_id=t2.role_id-->
-<!--        where t1.user_id = #{userId}-->
-<!--    </select>-->
-
-<!--    <select id="findListByParentId" parameterType="String" resultMap="BaseResultMap">-->
-<!--     select-->
-<!--        <include refid="Base_Column_List"/>-->
-<!--      from sys_permission-->
-<!--    <where>-->
-<!--        parent_id = #{parentId}-->
-<!--    </where>-->
-<!--    </select>-->
 
     <select id="findMenuNodeListByParentId" parameterType="String" resultType="com.nb.shiro.model.vo.MenuNode">
         select
         id id,
         `name` `name`,
-        redirect redirect,
-        url url,
+        path path,
         component component,
-        is_leaf isLeaf,
-        is_route isRoute
+        is_leaf isLeaf
         from sys_permission
-        where  parent_id = #{parentId}
+        where
+              parent_id = #{parentId} and menu_type in(0,1)
     </select>
 
     <select id="findUserTopMenuNodeList" parameterType="String" resultType="com.nb.shiro.model.vo.MenuNode">
      select
         id id,
         `name` `name`,
-        redirect redirect,
-        url url,
+        path path,
         component component,
-        is_leaf isLeaf,
-        is_route isRoute
+        is_leaf isLeaf
     from
         sys_permission
     where
-        id in ( select distinct t2.permission_id from sys_user_role t1 join sys_role_permission t2 on t1.role_id = t2.role_id where t1.user_id=#{userId})
-        and  parent_id is null order by sort_no
+        id in ( select distinct t2.permission_id
+                from sys_user_role t1 join sys_role_permission t2 on t1.role_id = t2.role_id
+                where t1.user_id=#{userId}
+                )
+        and ( parent_id ='' or parent_id is null ) and menu_type=0 order by sort_no
+    </select>
+
+
+    <select id="getUserShiroPermissions" parameterType="String" resultType="String">
+        select
+            t3.perms
+        from
+            sys_user_role t1
+            left join sys_role_permission t2 on t1.role_id=t2.role_id
+            left join sys_permission t3 on t2.permission_id=t3.id
+        where t1.user_id = #{userId} and del_flag=0 and menu_type=2
     </select>
 </mapper>

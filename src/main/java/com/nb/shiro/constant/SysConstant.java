@@ -14,4 +14,10 @@ public class SysConstant {
     public static final int  TOKEN_EXPIRE_TIME  = 3600;
 
 
+    /*****菜单类型(0:一级菜单; 1:子菜单:2:按钮权限) ******/
+    public static final int  MENU_TYPE_0 = 0;//
+    public static final int  MENU_TYPE_1 = 1;
+    public static final int  MENU_TYPE_2 = 2;
+
+
 }
